@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour {
     // Attached Assets:
     private Rigidbody2D rb;
+    private Weapon weapon;
     
     // Input Controls:
     private PlayerInput input;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour {
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         input = new PlayerInput();
+        weapon = GetComponentInChildren<Weapon>();
     }
 
     void OnEnable(){
