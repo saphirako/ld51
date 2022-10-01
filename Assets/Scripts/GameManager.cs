@@ -3,8 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-    // Start is called before the first frame update
-    void Start() {
-
+    // Declare singleton
+    private static GameManager instance;
+    private void Awake() {
+        if (instance != null && instance != this) {
+            Destroy(this);
+            return;
+        }
+        else instance = this;
+        DontDestroyOnLoad(this);
     }
+
 }
