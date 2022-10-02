@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 public class PlayerController : MonoBehaviour {
     // Attached Assets:
     private Rigidbody2D rb;
     private Weapon weapon;
-    
+
     // Input Controls:
     private PlayerInput input;
     private InputAction movement;
@@ -25,7 +24,7 @@ public class PlayerController : MonoBehaviour {
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         input = new PlayerInput();
-        weapon = GetComponentInChildren<Weapon>();
+        weapon = GetComponentInChildren(typeof(Weapon), false) as Weapon;
     }
 
     void OnEnable(){
@@ -34,8 +33,8 @@ public class PlayerController : MonoBehaviour {
         input.Player.Move.Enable();
 
         // Subscribe to fire events
-        // input.Player.Fire.performed += Fire;
-        // input.Player.Fire.Enable();
+        input.Player.Fire.performed += weapon.Fire;
+        input.Player.Fire.Enable();
     }
 
 
