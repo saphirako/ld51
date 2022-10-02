@@ -61,6 +61,7 @@ public class Enemy : MonoBehaviour {
     }
 
     public void Damage(float damageDealt) {
+        AudioManager.Instance.Play("EnemyHit");
         health -= damageDealt;
         if (health < 1) {
             Destroy(gameObject);
