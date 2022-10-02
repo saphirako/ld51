@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour {
     private EnemyType[] flyers = { EnemyType.Jelly, EnemyType.UFO, EnemyType.Squid, EnemyType.Eyeball };
     private EnemyType[] shooters = { EnemyType.UFO, EnemyType.Eyeball };
     private EnemyType[] grounders = { EnemyType.Derp, EnemyType.Hedgehog };
-    private EnemyType[] leftRighters = { EnemyType.Hedgehog, EnemyType.Squid };
+    private EnemyType[] leftRighters = { EnemyType.Hedgehog, EnemyType.Squid, EnemyType.Derp };
 
     [SerializeField]
     private EnemyType enemyType;
@@ -22,7 +22,8 @@ public class Enemy : MonoBehaviour {
     private int damage;
     [SerializeField]
     private int points;
-   
+    [SerializeField]
+    private float health;
 
     void Start() {
         enemySpeed = Random.Range(enemySpeedMinMax.x, enemySpeedMinMax.y);
@@ -54,12 +55,19 @@ public class Enemy : MonoBehaviour {
         
         // Otherwise we hit something else and, whatever that is, is gonna destroy us.
         // if (other.gameObject.tag == "Player") other.GetComponent<PlayerController>().TakeDamage(damage);
-        if (other.gameObject.tag == "Projectile") {
-            other.gameObject.GetComponent<Projectile>().Detonate();
-            GameManager.instance.IncrementScore(points);
-        }
 
         // Finish him!!!
         Destroy(gameObject);
+    }
+
+    public void Damage(float damageDealt) {
+        health -= damageDealt;
+        if (health < 1) {
+            Destroy(gameObject);
+            // TODO: juice for death goes here
+        }
+        else {
+            // TODO: juice for damage goes here
+        }
     }
 }

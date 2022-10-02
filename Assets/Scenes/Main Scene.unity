@@ -1065,6 +1065,7 @@ MonoBehaviour:
   - {fileID: 2178089290651810668, guid: fe396c599157dd94296f38434aad35a1, type: 3}
   - {fileID: 2178089290651810668, guid: fa35d33f14d10e44ba25c458616b3156, type: 3}
   - {fileID: 2178089290651810668, guid: 0cea5f2a125e432429d64cab750b50be, type: 3}
+  - {fileID: 2178089290651810668, guid: b78ca2160d3f86641baa6bb3bc01a40e, type: 3}
   enemyRespawnTiming: 3
   phaseTwo: 0
   phaseThree: 0

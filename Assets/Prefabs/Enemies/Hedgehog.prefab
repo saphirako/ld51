@@ -104,6 +104,7 @@ MonoBehaviour:
   enemySpeedMinMax: {x: -0.2, y: 0.3}
   damage: 1
   points: 50
+  health: 1
 --- !u!61 &3262907503788868362
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ public class Projectile : MonoBehaviour {
     public float projectileSpeed;
     private Rigidbody2D rb;
     private string[] layersToKill = {"Entities", "Background", "Boundary"};
+    [SerializeField]
+    private float damage;
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -20,10 +22,15 @@ public class Projectile : MonoBehaviour {
         Destroy(gameObject);
     }
 
+
     void OnCollisionEnter2D(Collision2D other) {
         if (System.Array.IndexOf(layersToKill, other.gameObject.tag) >= 0) {
             Destroy(this.gameObject);
             return;
+        }
+
+        if (other.gameObject.tag == "Enemy") {
+            other.gameObject.GetComponent<Enemy>().Damage(damage);
         }
     }
 }
