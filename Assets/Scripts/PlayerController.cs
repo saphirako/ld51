@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private Weapon weapon;
     private PlayerAnimationController pac;
+    private WeaponChangeParticles wcp;
+    private ParticleSystem runParticles;
 
     // Input Controls:
     private PlayerInput input;
@@ -33,9 +35,11 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         input = new PlayerInput();
         pac = GetComponent<PlayerAnimationController>();
+        runParticles = GetComponent<ParticleSystem>();
         Health = 3;
         scoreTimer = GameManager.instance.TimeToScore;
         weapons = GetComponentsInChildren<Weapon>(true);
+        wcp = GetComponentInChildren<WeaponChangeParticles>();
         selectedWeapon = Random.Range(0, weapons.Length);
         weapons[selectedWeapon].gameObject.SetActive(true);
         weapon = weapons[selectedWeapon];
@@ -75,6 +79,7 @@ public class PlayerController : MonoBehaviour {
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             isGrounded = false;
             pac.Jump();
+            runParticles.Stop();
             return;
         }
 
@@ -90,6 +95,7 @@ public class PlayerController : MonoBehaviour {
         if (other.gameObject.name == "Ground") {
             isGrounded = true;
             pac.Run();
+            runParticles.Play();
         }
     }
 
@@ -99,6 +105,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void UpdateWeapon(){
+        wcp.Play();
         int newWeapon;
         do {
             newWeapon = Random.Range(0, weapons.Length);
