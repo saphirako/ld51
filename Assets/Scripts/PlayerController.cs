@@ -36,12 +36,14 @@ public class PlayerController : MonoBehaviour {
 
         // Subscribe to fire events
         input.Player.Fire.performed += weapon.Fire;
+        // input.Player.Fire.performed += GameManager.instance.StartGame;
         input.Player.Fire.Enable();
     }
 
 
     void FixedUpdate(){
         isUpright = isGrounded;
+        if (GameManager.instance.State == GameManager.GameState.Menu) transform.position = new Vector3(transform.position.x + GameManager.instance.ForwardMomentum, transform.position.y, transform.position.z);
     }
 
     private void ProcessMovement(InputAction.CallbackContext context) {

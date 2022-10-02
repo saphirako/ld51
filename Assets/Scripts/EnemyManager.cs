@@ -13,17 +13,20 @@ public class EnemyManager : MonoBehaviour {
 
     void Start() {
         spawnTimer = enemyRespawnTiming;
-    }
-    
-    void Update() {
-        if (spawnTimer < 0) {
-            spawnTimer = enemyRespawnTiming;
-            var newEnemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)].gameObject, transform.position, transform.rotation);
-        }
-
-        else spawnTimer -= Time.deltaTime;
-
-        // Up the ante when we get to a new phase (spawn quicker)
         enemyRespawnTiming = 4 - GameManager.instance.GamePhase;
+    }
+
+    void Update() {
+        if (GameManager.instance.State == GameManager.GameState.Playing) {
+            if (spawnTimer < 0) {
+                spawnTimer = enemyRespawnTiming;
+                var newEnemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)].gameObject, transform.position, transform.rotation);
+            }
+
+            else spawnTimer -= Time.deltaTime;
+
+            // Up the ante when we get to a new phase (spawn quicker)
+            enemyRespawnTiming = 4 - GameManager.instance.GamePhase;
+        }
     }
 }
