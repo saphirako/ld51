@@ -1282,5 +1282,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alien World
       objectReference: {fileID: 0}
+    - target: {fileID: 430523798527428975, guid: 35dc92602868feb4c9aac8dfe24e9b4c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35dc92602868feb4c9aac8dfe24e9b4c, type: 3}
