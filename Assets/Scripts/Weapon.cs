@@ -28,6 +28,10 @@ public class Weapon : MonoBehaviour {
         direction = Mouse.current.position.ReadValue() - (Vector2)Camera.main.WorldToScreenPoint(transform.position);
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        
+        // TODO: Limit weapon rotation to ahead of us
+        // if (transform.rotation.z > 65) transform.Rotate(transform.rotation.x, transform.rotation.y, 65f, Space.Self);
+        // else if (transform.rotation.z < -65) transform.Rotate(transform.rotation.x, transform.rotation.y, -65f, Space.Self);
 
         if (timer > 0) timer -= Time.deltaTime;
     }

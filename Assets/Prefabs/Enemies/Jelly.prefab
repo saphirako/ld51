@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2178089290651810666}
   - component: {fileID: 2178089290651810667}
   - component: {fileID: 2178089290651810668}
-  - component: {fileID: 3262907503788868362}
   - component: {fileID: 6965477439283145083}
+  - component: {fileID: 2004924305}
   m_Layer: 6
-  m_Name: Hedgehog
+  m_Name: Jelly
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 514138453
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7fd3520e6e79f874e8e112f7c58d85d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 16649dd66d12e9648804919a60aec0d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,13 +99,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 079d28f707a22dc49982d916a1960f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 1
-  enemySpawnHeightBounds: {x: -2, y: 0}
-  enemySpeedMinMax: {x: -0.2, y: 0.3}
-  damage: 1
-  points: 50
---- !u!61 &3262907503788868362
-BoxCollider2D:
+  enemyType: 6
+  enemySpawnHeightBounds: {x: -3, y: -1}
+  enemySpeedMinMax: {x: 0.1, y: 0.2}
+  damage: 3
+  points: 200
+--- !u!50 &6965477439283145083
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2178089290651810669}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 1
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 6
+--- !u!60 &2004924305
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -121,33 +142,19 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.05, y: 0.65}
+    oldSize: {x: 2.475, y: 1.425}
     newSize: {x: 1.23, y: 0.39}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.05, y: 0.65}
-  m_EdgeRadius: 0
---- !u!50 &6965477439283145083
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2178089290651810669}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.6125, y: 0.71250004}
+      - {x: -0.96250004, y: 0.5375}
+      - {x: -1.2375001, y: 0.3625}
+      - {x: -1.2375001, y: -0.71250004}
+      - {x: 1.1375, y: -0.71250004}
+      - {x: 1.2375001, y: -0.58750004}
+      - {x: 1.2375001, y: 0.3125}
+      - {x: 0.7375, y: 0.71250004}

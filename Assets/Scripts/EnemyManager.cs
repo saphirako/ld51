@@ -5,6 +5,10 @@ public class EnemyManager : MonoBehaviour {
     private Enemy[] enemyPrefabs;
     [SerializeField]
     private float enemyRespawnTiming;
+    [SerializeField]
+    private float phaseTwo;
+    [SerializeField]
+    private float phaseThree;
     private float spawnTimer;
 
     void Start() {
@@ -18,5 +22,8 @@ public class EnemyManager : MonoBehaviour {
         }
 
         else spawnTimer -= Time.deltaTime;
+
+        // Up the ante when we get to a new phase (spawn quicker)
+        enemyRespawnTiming = 4 - GameManager.instance.GamePhase;
     }
 }

@@ -5,7 +5,8 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance;
     public float ForwardMomentum;
     public float Score { get; private set; }
-    
+    public float GamePhase { get; private set; }
+
     private void Awake() {
         if (instance != null && instance != this) {
             Destroy(this);
