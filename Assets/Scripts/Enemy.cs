@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     private Vector2 enemySpeedMinMax;    
     private float enemySpeed;
+    [SerializeField]
+    private int damage;
 
     void Start() {
         enemySpeed = Random.Range(enemySpeedMinMax.x, enemySpeedMinMax.y);
@@ -29,5 +31,13 @@ public class Enemy : MonoBehaviour {
     void FixedUpdate() {
         // LeftRighter movement Logic:
         if (System.Array.IndexOf(leftRighters, enemyType) >= 0) transform.position = new Vector2(transform.position.x + enemySpeed, transform.position.y);
+    }
+
+    void OnCollision2DEnter(Collision2D other) {
+        if (other.gameObject.tag == "Despawn") {
+            Destroy(gameObject);
+            return;
+        }
+        // if (other.gameObject.tag == "Player") other.GetComponent<PlayerController>().TakeDamage(damage);
     }
 }

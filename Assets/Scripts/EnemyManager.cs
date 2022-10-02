@@ -7,10 +7,16 @@ public class EnemyManager : MonoBehaviour {
     private float enemyRespawnTiming;
     private float spawnTimer;
 
+    void Start() {
+        spawnTimer = enemyRespawnTiming;
+    }
+    
     void Update() {
         if (spawnTimer < 0) {
             spawnTimer = enemyRespawnTiming;
-            Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)].gameObject, transform.position, transform.rotation);
+            var newEnemy = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)].gameObject, transform.position, transform.rotation);
         }
+
+        else spawnTimer -= Time.deltaTime;
     }
 }
