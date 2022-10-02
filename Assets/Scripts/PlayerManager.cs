@@ -20,4 +20,8 @@ public class PlayerManager : MonoBehaviour {
         Destroy(player.gameObject);
         player = null;
     }
+
+    public void UpdateWeapon() {
+        player.UpdateWeapon();
+    }
 }

@@ -7,12 +7,14 @@ public class GameManager : MonoBehaviour {
     public enum GameState { Menu, Starting, Playing, GameOver };
     public GameState State { get; private set; }
     private PlayerInput input;
-    private PlayerManager spawner;
+    private PlayerManager playerManager;
 
     public float ForwardMomentum;
     public float Score { get; private set; }
     public float GamePhase { get; private set; }
     public float TimeToScore;
+    private float tenSecondTimer;
+
 
     private void Awake() {
         if (instance != null && instance != this) {
@@ -23,7 +25,8 @@ public class GameManager : MonoBehaviour {
 
         input = new PlayerInput();
         instance.State = GameState.Menu;
-        spawner = GetComponentInChildren<PlayerManager>();
+        playerManager = GetComponentInChildren<PlayerManager>(true);
+        tenSecondTimer = 10f;
 
         DontDestroyOnLoad(this);
     }
@@ -33,6 +36,16 @@ public class GameManager : MonoBehaviour {
 
         input.UI.Click.performed += StartGame;
         ToggleClickAction(true);
+    }
+
+    void FixedUpdate() {
+        if (instance.State == GameState.Playing) {
+            instance.tenSecondTimer -= Time.deltaTime;
+            if (instance.tenSecondTimer <= 0) {
+                playerManager.UpdateWeapon();
+                instance.tenSecondTimer = 10f; 
+            }
+        }
     }
     public void IncrementScore(int deltaPoints) {
         Score += deltaPoints;
@@ -52,13 +65,13 @@ public class GameManager : MonoBehaviour {
             // If we hit nothing or we hit one of the boundary/triggers, start the game and turn off UI clicking
             if (!hit || hit.collider.tag == "Boundary") {
                 ToggleClickAction(false);
-                spawner.Spawn();
+                playerManager.Spawn();
             }
         }
     }
 
     public void GameOver() {
         instance.State = GameState.GameOver;
-        spawner.KillPlayer();
+        playerManager.KillPlayer();
     }
 }

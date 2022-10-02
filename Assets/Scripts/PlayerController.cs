@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour {
     // Attached Assets:
     private Rigidbody2D rb;
+    [SerializeField]
     private Weapon weapon;
     private PlayerAnimationController pac;
 
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour {
 
     // Variables:
     [SerializeField]
+    private Weapon[] weapons;
+
     private float jumpForce;
     [SerializeField]
     private float slideTime;
@@ -23,15 +26,19 @@ public class PlayerController : MonoBehaviour {
     private bool isGrounded;
     private bool isUpright;
     private float scoreTimer;
+    private int selectedWeapon;
 
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         input = new PlayerInput();
         pac = GetComponent<PlayerAnimationController>();
-        weapon = GetComponentInChildren(typeof(Weapon), false) as Weapon;
         Health = 3;
         scoreTimer = GameManager.instance.TimeToScore;
+        weapons = GetComponentsInChildren<Weapon>(true);
+        selectedWeapon = Random.Range(0, weapons.Length);
+        weapons[selectedWeapon].gameObject.SetActive(true);
+        weapon = weapons[selectedWeapon];
     }
 
     void OnEnable() {
@@ -54,6 +61,7 @@ public class PlayerController : MonoBehaviour {
                 GameManager.instance.IncrementScore(1);
                 scoreTimer = GameManager.instance.TimeToScore;
             }
+
             scoreTimer -= Time.deltaTime;
         }
     }
@@ -88,5 +96,20 @@ public class PlayerController : MonoBehaviour {
     public void TakeDamage(int damage) {
         Health -= damage;
         if (Health < 1) GameManager.instance.GameOver();
+    }
+
+    public void UpdateWeapon(){
+        int newWeapon;
+        do {
+            newWeapon = Random.Range(0, weapons.Length);
+        } while (newWeapon == selectedWeapon);
+
+        // Replace the currently active weapon with the new weapon
+        weapons[newWeapon].gameObject.SetActive(true);
+        input.Player.Fire.performed -= weapon.Fire;
+        weapon = weapons[newWeapon];
+        input.Player.Fire.performed += weapon.Fire;
+        weapons[selectedWeapon].gameObject.SetActive(false);
+        selectedWeapon = newWeapon;
     }
 }
