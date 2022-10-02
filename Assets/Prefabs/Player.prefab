@@ -217,7 +217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &912707830
 Transform:
   m_ObjectHideFlags: 0
@@ -711,13 +711,14 @@ GameObject:
   - component: {fileID: 8527075313116281517}
   - component: {fileID: 8527075313116281519}
   - component: {fileID: 6355317436299128755}
+  - component: {fileID: 94422388}
   m_Layer: 7
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8527075313116281517
 Transform:
   m_ObjectHideFlags: 0
@@ -786,6 +787,21 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &6355317436299128755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8527075313116281516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf86cdb44fd8dd4aa7fe3127ad31f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  projectile: {fileID: 2764311121362084782, guid: f8c93850a32004d4ca4d5b40b6c443f3, type: 3}
+  rateOfFire: 1
+--- !u!114 &94422388
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -933,7 +949,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.012818962, y: 0.064094186}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -944,7 +960,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.66670984, y: 1.1965559}
   m_EdgeRadius: 0
 --- !u!95 &4490503118417591506
 Animator:
@@ -990,7 +1006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b7046930d311540a028a77043d5503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 10
+  jumpForce: 6
   slideTime: 0
   iFrameTime: 0
 --- !u!114 &8527075313523147302

@@ -15,6 +15,11 @@ public class Projectile : MonoBehaviour {
         rb.AddForce(direction * projectileSpeed, ForceMode2D.Force);
     }
 
+    public void Detonate() {
+        // TODO: This is where the explosion would occur
+        Destroy(gameObject);
+    }
+
     void OnCollisionEnter2D(Collision2D other) {
         if (System.Array.IndexOf(layersToKill, other.gameObject.tag) >= 0) {
             Destroy(this.gameObject);
