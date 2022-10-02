@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour {
     // Attached Assets:
     private Rigidbody2D rb;
     private Weapon weapon;
+    private PlayerAnimationController pac;
 
     // Input Controls:
     private PlayerInput input;
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour {
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         input = new PlayerInput();
+        pac = GetComponent<PlayerAnimationController>();
         weapon = GetComponentInChildren(typeof(Weapon), false) as Weapon;
     }
 
@@ -50,6 +52,7 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("Is jumping");
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             isGrounded = false;
+            pac.Jump();
             return;
         }
 
@@ -57,10 +60,14 @@ public class PlayerController : MonoBehaviour {
         if (isGrounded && isUpright && yInput < 0) {
             Debug.Log("Is sliding");
             isUpright = false;
+            pac.Slide();
         }
     }
 
     void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.name == "Ground") isGrounded = true;
+        if(other.gameObject.name == "Ground") {
+            isGrounded = true;
+            pac.Run();
+        }
     }
 }
