@@ -19,17 +19,22 @@ public class PlayerController : MonoBehaviour {
     private float slideTime;
     [SerializeField]
     private float iFrameTime;
+    public int Health { get; private set; }
     private bool isGrounded;
     private bool isUpright;
+    private float scoreTimer;
+
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         input = new PlayerInput();
         pac = GetComponent<PlayerAnimationController>();
         weapon = GetComponentInChildren(typeof(Weapon), false) as Weapon;
+        Health = 3;
+        scoreTimer = GameManager.instance.TimeToScore;
     }
 
-    void OnEnable(){
+    void OnEnable() {
         // Subscribe to "movement" (jump/slide) events
         input.Player.Move.performed += ProcessMovement;
         input.Player.Move.Enable();
@@ -41,9 +46,16 @@ public class PlayerController : MonoBehaviour {
     }
 
 
-    void FixedUpdate(){
+    void FixedUpdate() {
         isUpright = isGrounded;
         if (GameManager.instance.State == GameManager.GameState.Menu) transform.position = new Vector3(transform.position.x + GameManager.instance.ForwardMomentum, transform.position.y, transform.position.z);
+        if (GameManager.instance.State == GameManager.GameState.Playing && Health > 0) {
+            if (scoreTimer < 0 ) {
+                GameManager.instance.IncrementScore(1);
+                scoreTimer = GameManager.instance.TimeToScore;
+            }
+            scoreTimer -= Time.deltaTime;
+        }
     }
 
     private void ProcessMovement(InputAction.CallbackContext context) {
@@ -67,9 +79,14 @@ public class PlayerController : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.name == "Ground") {
+        if (other.gameObject.name == "Ground") {
             isGrounded = true;
             pac.Run();
         }
+    }
+
+    public void TakeDamage(int damage) {
+        Health -= damage;
+        if (Health < 1) GameManager.instance.GameOver();
     }
 }

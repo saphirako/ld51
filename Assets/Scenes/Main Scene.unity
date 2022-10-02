@@ -713,6 +713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainCamera: {fileID: 519420031}
+  playerScore: {fileID: 1597729985}
 --- !u!1 &1113801813
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,8 +820,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 36.700012, y: -16}
-  m_SizeDelta: {x: 200, y: 36}
+  m_AnchoredPosition: {x: 36, y: -16}
+  m_SizeDelta: {x: 600, y: 36}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1597729985
 MonoBehaviour:
@@ -851,8 +852,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1017,6 +1018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ForwardMomentum: 0.2
+  TimeToScore: 0.6
 --- !u!4 &1690122561
 Transform:
   m_ObjectHideFlags: 0
@@ -1158,10 +1160,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1860240211}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 023d6e9ddc31f5942bf2fec747607389, type: 3}
+  m_Script: {fileID: 11500000, guid: a42e6018eb11ebe4393daf038d03f94c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 8527075313523147301, guid: 6737788a7bf8c9246b64a4680a95c140, type: 3}
+  playerPrefab: {fileID: 8527075313523147301, guid: 6737788a7bf8c9246b64a4680a95c140, type: 3}
 --- !u!1 &2049744658
 GameObject:
   m_ObjectHideFlags: 0

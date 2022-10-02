@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour {
         if (other.gameObject.name == "Ground" || other.gameObject.tag == "Enemy") return;
         
         // Otherwise we hit something else and, whatever that is, is gonna destroy us.
-        // if (other.gameObject.tag == "Player") other.GetComponent<PlayerController>().TakeDamage(damage);
+        if (other.gameObject.tag == "Player") other.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
 
         // Finish him!!!
         Destroy(gameObject);

@@ -7,11 +7,12 @@ public class GameManager : MonoBehaviour {
     public enum GameState { Menu, Starting, Playing, GameOver };
     public GameState State { get; private set; }
     private PlayerInput input;
-    private PlayerSpawner spawner;
+    private PlayerManager spawner;
 
     public float ForwardMomentum;
     public float Score { get; private set; }
     public float GamePhase { get; private set; }
+    public float TimeToScore;
 
     private void Awake() {
         if (instance != null && instance != this) {
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour {
 
         input = new PlayerInput();
         instance.State = GameState.Menu;
-        spawner = GetComponentInChildren<PlayerSpawner>();
+        spawner = GetComponentInChildren<PlayerManager>();
 
         DontDestroyOnLoad(this);
     }
@@ -54,5 +55,10 @@ public class GameManager : MonoBehaviour {
                 spawner.Spawn();
             }
         }
+    }
+
+    public void GameOver() {
+        instance.State = GameState.GameOver;
+        spawner.KillPlayer();
     }
 }
