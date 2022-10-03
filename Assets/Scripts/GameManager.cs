@@ -54,7 +54,8 @@ public class GameManager : MonoBehaviour {
     }
     public void PlayGame() {
         instance.State = GameState.Playing;
-        UIManager.instance.Clear();
+        UIManager.instance.InGameScreen();
+        // TODO: Add in hook here @HandOfDoom (activate)
     }
 
     private void ToggleClickAction(bool turnOn) {
@@ -78,6 +79,7 @@ public class GameManager : MonoBehaviour {
     public void GameOver() {
         instance.State = GameState.GameOver;
         playerManager.KillPlayer();
+        // TODO: Add in hook here @HandOfDoom (deactivate)
         UIManager.instance.GameOverScreen();
     }
 }

@@ -83,7 +83,6 @@ public class PlayerController : MonoBehaviour {
 
         // Trigger jumping
         if (isGrounded && isUpright && yInput > 0) {
-            Debug.Log("Is jumping");
             // transform.Translate(new Vector3(0f,.1f,0f));
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             isGrounded = false;
@@ -116,6 +115,7 @@ public class PlayerController : MonoBehaviour {
         AudioManager.Instance.Play("PlayerHit");
         php.Play();
         Health -= damage;
+        UIManager.instance.VisualHealthBar.RemoveOlives(damage);
         if (Health < 1) GameManager.instance.GameOver();
     }
 
