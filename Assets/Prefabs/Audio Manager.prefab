@@ -92,12 +92,12 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: PlayerHit
     clip: {fileID: 8300000, guid: 7af15fee7e8c68849b1be33dc97c9a41, type: 3}
-    volume: 0.5
-    pitch: 1
+    volume: 0.4
+    pitch: 1.5
     source: {fileID: 0}
   - name: EnemyHit
     clip: {fileID: 8300000, guid: edbf6d5b2956ce84083df174c82b494b, type: 3}
-    volume: 0.5
+    volume: 0.7
     pitch: 1
     source: {fileID: 0}
   - name: Teleport
