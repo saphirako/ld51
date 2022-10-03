@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour {
     private Weapon weapon;
     private PlayerAnimationController pac;
     private WeaponChangeParticles wcp;
+    private LandParticles lp;
+    private PlayerHitParticles php;
     private ParticleSystem runParticles;
     private AudioSource audioSource;
     private AudioSource music;
@@ -43,6 +45,8 @@ public class PlayerController : MonoBehaviour {
         scoreTimer = GameManager.instance.TimeToScore;
         weapons = GetComponentsInChildren<Weapon>(true);
         wcp = GetComponentInChildren<WeaponChangeParticles>();
+        lp = GetComponentInChildren<LandParticles>();
+        php = GetComponentInChildren<PlayerHitParticles>();
         selectedWeapon = Random.Range(0, weapons.Length);
         weapons[selectedWeapon].gameObject.SetActive(true);
         weapon = weapons[selectedWeapon];
@@ -104,12 +108,14 @@ public class PlayerController : MonoBehaviour {
             isGrounded = true;
             pac.Run();
             runParticles.Play();
+            lp.Play();
             audioSource.Play();
         }
     }
 
     public void TakeDamage(int damage) {
         AudioManager.Instance.Play("PlayerHit");
+        php.Play();
         Health -= damage;
         if (Health < 1) GameManager.instance.GameOver();
     }
