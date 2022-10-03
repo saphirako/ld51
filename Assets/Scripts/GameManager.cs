@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour {
 
             // If we hit nothing or we hit one of the boundary/triggers, start the game and turn off UI clicking
             if (!hit || hit.collider.tag == "Boundary") {
+                UIManager.instance.ToggleTitleScreen(false);
                 ToggleClickAction(false);
                 playerManager.Spawn();
             }

@@ -5,6 +5,8 @@ public class UIManager : MonoBehaviour {
     public Camera MainCamera;
     [SerializeField]
     private TMPro.TextMeshProUGUI playerScore;
+    [SerializeField]
+    private GameObject titleScreen;
 
     // Singleton declaration
     private void Awake() {
@@ -23,5 +25,9 @@ public class UIManager : MonoBehaviour {
     void FixedUpdate() {
         if (GameManager.instance.State == GameManager.GameState.Playing)
             playerScore.SetText($"{GameManager.instance.Score}");
+    }
+
+    public void ToggleTitleScreen(bool show){
+        instance.titleScreen.SetActive(show);
     }
 }
