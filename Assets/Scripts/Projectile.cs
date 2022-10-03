@@ -23,14 +23,15 @@ public class Projectile : MonoBehaviour {
     }
 
 
-    void OnCollisionEnter2D(Collision2D other) {
+    void OnTriggerEnter2D(Collider2D other) {
         if (System.Array.IndexOf(layersToKill, other.gameObject.tag) >= 0) {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
 
         if (other.gameObject.tag == "Enemy") {
             other.gameObject.GetComponent<Enemy>().Damage(damage);
+            Destroy(gameObject);
         }
     }
 }

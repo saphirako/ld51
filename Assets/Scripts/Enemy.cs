@@ -57,17 +57,19 @@ public class Enemy : MonoBehaviour {
         if (other.gameObject.name == "Ground" || other.gameObject.tag == "Enemy") return;
         
         // Otherwise we hit something else and, whatever that is, is gonna destroy us.
-        if (other.gameObject.tag == "Player") other.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
-
-        // Finish him!!!
-        Destroy(gameObject);
+        if (other.gameObject.tag == "Player") {
+            other.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
+            GameManager.instance.IncrementScore(points);
+            Destroy(gameObject);
+        }
     }
 
     public void Damage(float damageDealt) {
         AudioManager.Instance.Play("EnemyHit");
         ps.Play();
         health -= damageDealt;
-        if (health < 1) {
+        if (health <= 0) {
+            GameManager.instance.IncrementScore(points);
             Destroy(gameObject);
             // TODO: juice for death goes here
         }
