@@ -26,9 +26,11 @@ public class Enemy : MonoBehaviour {
     private float health;
 
     private ParticleSystem ps;
+    private Animator anim;
 
     void Start() {
         ps = GetComponent<ParticleSystem>();
+        anim = GameObject.Find("Player Score").GetComponent<Animator>();
         enemySpeed = Random.Range(enemySpeedMinMax.x, enemySpeedMinMax.y);
         spawnHeight = Random.Range(enemySpawnHeightBounds.x, enemySpawnHeightBounds.y);
         transform.position.Set(
@@ -60,6 +62,7 @@ public class Enemy : MonoBehaviour {
         if (other.gameObject.tag == "Player") {
             other.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
             GameManager.instance.IncrementScore(points);
+            anim.Play("TextEmphasis");
             Destroy(gameObject);
         }
     }
@@ -70,6 +73,7 @@ public class Enemy : MonoBehaviour {
         health -= damageDealt;
         if (health <= 0) {
             GameManager.instance.IncrementScore(points);
+            anim.Play("TextEmphasis");
             Destroy(gameObject);
             // TODO: juice for death goes here
         }
