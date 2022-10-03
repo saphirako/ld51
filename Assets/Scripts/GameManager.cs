@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour {
     }
     public void PlayGame() {
         instance.State = GameState.Playing;
+        UIManager.instance.Clear();
     }
 
     private void ToggleClickAction(bool turnOn) {
@@ -64,7 +65,7 @@ public class GameManager : MonoBehaviour {
 
             // If we hit nothing or we hit one of the boundary/triggers, start the game and turn off UI clicking
             if (!hit || hit.collider.tag == "Boundary") {
-                UIManager.instance.ToggleTitleScreen(false);
+                UIManager.instance.TitleScreen();
                 ToggleClickAction(false);
                 playerManager.Spawn();
             }
@@ -74,5 +75,6 @@ public class GameManager : MonoBehaviour {
     public void GameOver() {
         instance.State = GameState.GameOver;
         playerManager.KillPlayer();
+        UIManager.instance.GameOverScreen();
     }
 }

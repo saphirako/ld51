@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour {
     private TMPro.TextMeshProUGUI playerScore;
     [SerializeField]
     private GameObject titleScreen;
+    [SerializeField]
+    private GameObject gameOverScreen;
 
     // Singleton declaration
     private void Awake() {
@@ -27,7 +29,14 @@ public class UIManager : MonoBehaviour {
             playerScore.SetText($"{GameManager.instance.Score}");
     }
 
-    public void ToggleTitleScreen(bool show){
-        instance.titleScreen.SetActive(show);
+    public void Clear(){
+        instance.titleScreen.SetActive(false);
+        instance.gameOverScreen.SetActive(false);
+    }
+    public void TitleScreen(){
+        instance.titleScreen.SetActive(true);
+    }
+    public void GameOverScreen(){
+        instance.gameOverScreen.SetActive(true);
     }
 }
