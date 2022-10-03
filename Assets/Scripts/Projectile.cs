@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour {
     public float projectileSpeed;
     private Rigidbody2D rb;
-    private string[] layersToKill = {"Entities", "Background", "Boundary"};
+    private string[] layersToKill = {"Water", "Entities", "Background", "Boundary"};
     [SerializeField]
     private float damage;
 
