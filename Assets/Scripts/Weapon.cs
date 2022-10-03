@@ -17,7 +17,18 @@ public class Weapon : MonoBehaviour {
     private WeaponType type;
     [SerializeField]
     private Projectile projectile;
-
+    private enum WeaponSound {
+        BeeBeeGun,
+        Flamethrower,
+        Laser,
+        Minigun,
+        Pistol,
+        PlasmaLauncher,
+        RocketPod,
+        Watergun
+    }
+    [SerializeField]
+    private WeaponSound sound;
     [SerializeField]
     protected int rateOfFire;
     protected float timer;
@@ -40,6 +51,7 @@ public class Weapon : MonoBehaviour {
         if (timer <= 0) {
             var bullet = Instantiate(projectile.gameObject, transform.position, transform.rotation).GetComponent<Projectile>();
             bullet.Launch(direction);
+            AudioManager.Instance.Play(sound.ToString());
         }
     }
 }

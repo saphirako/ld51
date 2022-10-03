@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour {
     private PlayerAnimationController pac;
     private WeaponChangeParticles wcp;
     private ParticleSystem runParticles;
+    private AudioSource audioSource;
+    private AudioSource music;
 
     // Input Controls:
     private PlayerInput input;
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         input = new PlayerInput();
         pac = GetComponent<PlayerAnimationController>();
+        audioSource = GetComponent<AudioSource>();
         runParticles = GetComponent<ParticleSystem>();
         Health = 3;
         scoreTimer = GameManager.instance.TimeToScore;
@@ -54,6 +57,9 @@ public class PlayerController : MonoBehaviour {
         input.Player.Fire.performed += weapon.Fire;
         // input.Player.Fire.performed += GameManager.instance.StartGame;
         input.Player.Fire.Enable();
+
+        music = GameObject.Find("Music Manager").GetComponent<AudioSource>();
+        music.Play();
     }
 
 
@@ -80,6 +86,8 @@ public class PlayerController : MonoBehaviour {
             isGrounded = false;
             pac.Jump();
             runParticles.Stop();
+            audioSource.Stop();
+            AudioManager.Instance.Play("Jump");
             return;
         }
 
@@ -96,10 +104,12 @@ public class PlayerController : MonoBehaviour {
             isGrounded = true;
             pac.Run();
             runParticles.Play();
+            audioSource.Play();
         }
     }
 
     public void TakeDamage(int damage) {
+        AudioManager.Instance.Play("PlayerHit");
         Health -= damage;
         if (Health < 1) GameManager.instance.GameOver();
     }
