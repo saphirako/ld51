@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour {
     private PlayerHitParticles php;
     private RunParticles rp;
     private AudioSource audioSource;
-    private AudioSource music;
 
     // Input Controls:
     private PlayerInput input;
@@ -62,8 +61,7 @@ public class PlayerController : MonoBehaviour {
         // input.Player.Fire.performed += GameManager.instance.StartGame;
         input.Player.Fire.Enable();
 
-        music = GameObject.Find("Music Manager").GetComponent<AudioSource>();
-        music.Play();
+
     }
 
 
@@ -71,7 +69,7 @@ public class PlayerController : MonoBehaviour {
         isUpright = isGrounded;
         if (GameManager.instance.State == GameManager.GameState.Menu) transform.position = new Vector3(transform.position.x + GameManager.instance.ForwardMomentum, transform.position.y, transform.position.z);
         if (GameManager.instance.State == GameManager.GameState.Playing && Health > 0) {
-            if (scoreTimer < 0 ) {
+            if (scoreTimer < 0) {
                 GameManager.instance.IncrementScore(1);
                 scoreTimer = GameManager.instance.TimeToScore;
             }
@@ -121,7 +119,7 @@ public class PlayerController : MonoBehaviour {
         if (Health < 1) GameManager.instance.GameOver();
     }
 
-    public void UpdateWeapon(){
+    public void UpdateWeapon() {
         wcp.Play();
         int newWeapon;
         do {
@@ -135,5 +133,10 @@ public class PlayerController : MonoBehaviour {
         input.Player.Fire.performed += weapon.Fire;
         weapons[selectedWeapon].gameObject.SetActive(false);
         selectedWeapon = newWeapon;
+    }
+
+    void OnDestroy(){
+        input.Player.Fire.performed -= weapon.Fire;
+        input.Player.Fire.Disable();
     }
 }

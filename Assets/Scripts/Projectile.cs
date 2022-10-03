@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour {
     }
 
     public void Launch(Vector2 direction){
-        rb.AddForce(direction * projectileSpeed, ForceMode2D.Force);
+        rb.AddForce(direction.normalized * projectileSpeed, ForceMode2D.Impulse);
     }
 
     public void Detonate() {

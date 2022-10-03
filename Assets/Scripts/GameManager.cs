@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     public GameState State { get; private set; }
     private PlayerInput input;
     private PlayerManager playerManager;
+    private AudioSource music;
 
     public float ForwardMomentum;
     public float Score { get; private set; }
@@ -25,8 +26,9 @@ public class GameManager : MonoBehaviour {
 
         input = new PlayerInput();
         instance.State = GameState.Menu;
-        playerManager = GetComponentInChildren<PlayerManager>(true);
-        tenSecondTimer = 10f;
+        instance.playerManager = GetComponentInChildren<PlayerManager>(true);
+        instance.tenSecondTimer = 10f;
+        instance.music = GameObject.Find("Music Manager").GetComponent<AudioSource>();
 
         DontDestroyOnLoad(this);
     }
@@ -43,7 +45,7 @@ public class GameManager : MonoBehaviour {
             instance.tenSecondTimer -= Time.deltaTime;
             if (instance.tenSecondTimer <= 0) {
                 playerManager.UpdateWeapon();
-                instance.tenSecondTimer = 10f; 
+                instance.tenSecondTimer = 10f;
             }
         }
     }
@@ -65,9 +67,10 @@ public class GameManager : MonoBehaviour {
 
             // If we hit nothing or we hit one of the boundary/triggers, start the game and turn off UI clicking
             if (!hit || hit.collider.tag == "Boundary") {
-                UIManager.instance.TitleScreen();
+                UIManager.instance.Clear();
                 ToggleClickAction(false);
                 playerManager.Spawn();
+                music.Play();
             }
         }
     }
