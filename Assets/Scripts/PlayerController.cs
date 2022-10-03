@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
     private WeaponChangeParticles wcp;
     private LandParticles lp;
     private PlayerHitParticles php;
-    private ParticleSystem runParticles;
+    private RunParticles rp;
     private AudioSource audioSource;
     private AudioSource music;
 
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
     // Variables:
     [SerializeField]
     private Weapon[] weapons;
-
+    [SerializeField]
     private float jumpForce;
     [SerializeField]
     private float slideTime;
@@ -40,13 +40,13 @@ public class PlayerController : MonoBehaviour {
         input = new PlayerInput();
         pac = GetComponent<PlayerAnimationController>();
         audioSource = GetComponent<AudioSource>();
-        runParticles = GetComponent<ParticleSystem>();
         Health = 3;
         scoreTimer = GameManager.instance.TimeToScore;
         weapons = GetComponentsInChildren<Weapon>(true);
         wcp = GetComponentInChildren<WeaponChangeParticles>();
         lp = GetComponentInChildren<LandParticles>();
         php = GetComponentInChildren<PlayerHitParticles>();
+        rp = GetComponentInChildren<RunParticles>();
         selectedWeapon = Random.Range(0, weapons.Length);
         weapons[selectedWeapon].gameObject.SetActive(true);
         weapon = weapons[selectedWeapon];
@@ -86,10 +86,11 @@ public class PlayerController : MonoBehaviour {
         // Trigger jumping
         if (isGrounded && isUpright && yInput > 0) {
             Debug.Log("Is jumping");
+            // transform.Translate(new Vector3(0f,.1f,0f));
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             isGrounded = false;
             pac.Jump();
-            runParticles.Stop();
+            rp.Stop();
             audioSource.Stop();
             AudioManager.Instance.Play("Jump");
             return;
@@ -104,10 +105,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D other) {
+        Debug.Log(other.gameObject.name);
         if (other.gameObject.name == "Ground") {
+            Debug.Log("Is grounded");
             isGrounded = true;
             pac.Run();
-            runParticles.Play();
+            rp.Play();
             lp.Play();
             audioSource.Play();
         }
