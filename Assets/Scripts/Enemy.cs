@@ -25,7 +25,10 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     private float health;
 
+    private ParticleSystem ps;
+
     void Start() {
+        ps = GetComponent<ParticleSystem>();
         enemySpeed = Random.Range(enemySpeedMinMax.x, enemySpeedMinMax.y);
         spawnHeight = Random.Range(enemySpawnHeightBounds.x, enemySpawnHeightBounds.y);
         transform.position.Set(
@@ -62,6 +65,7 @@ public class Enemy : MonoBehaviour {
 
     public void Damage(float damageDealt) {
         AudioManager.Instance.Play("EnemyHit");
+        ps.Play();
         health -= damageDealt;
         if (health < 1) {
             Destroy(gameObject);
