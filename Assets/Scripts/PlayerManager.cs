@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour {
     private PlayerController player;
 
     public void Spawn() {
-        if (GameManager.instance.State == GameManager.GameState.Menu)
+        if (GameManager.instance.State != GameManager.GameState.Playing)
             player = Instantiate(playerPrefab.gameObject, transform.position, transform.rotation).GetComponent<PlayerController>();
     }
 

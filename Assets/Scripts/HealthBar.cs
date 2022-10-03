@@ -22,7 +22,7 @@ public class HealthBar : MonoBehaviour {
         }
     }
 
-    void Reset(){
+    public void Reset(){
         foreach (GameObject obj in olives) obj.SetActive(true);
         index = olives.Length - 1;
     }

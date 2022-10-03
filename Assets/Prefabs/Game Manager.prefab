@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77274bdb1ab613942b5c84c50a15ed28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startGameTrigger: {fileID: 5038906302193336230}
   ForwardMomentum: 0.2
   TimeToScore: 0.6
 --- !u!114 &5038906301550920381

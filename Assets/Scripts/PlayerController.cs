@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate() {
         isUpright = isGrounded;
-        if (GameManager.instance.State == GameManager.GameState.Menu) transform.position = new Vector3(transform.position.x + GameManager.instance.ForwardMomentum, transform.position.y, transform.position.z);
+        if (GameManager.instance.State != GameManager.GameState.Playing) transform.position = new Vector3(transform.position.x + GameManager.instance.ForwardMomentum, transform.position.y, transform.position.z);
         if (GameManager.instance.State == GameManager.GameState.Playing && Health > 0) {
             if (scoreTimer < 0) {
                 GameManager.instance.IncrementScore(1);

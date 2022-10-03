@@ -9,9 +9,10 @@ public class GameManager : MonoBehaviour {
     private PlayerInput input;
     private PlayerManager playerManager;
     private AudioSource music;
-
+    [SerializeField]
+    private StartGame startGameTrigger;
     public float ForwardMomentum;
-    public float Score { get; private set; }
+    public int Score { get; private set; }
     public float GamePhase { get; private set; }
     public float TimeToScore;
     private float tenSecondTimer;
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour {
     public void PlayGame() {
         instance.State = GameState.Playing;
         UIManager.instance.InGameScreen();
+        UIManager.instance.VisualHealthBar.Reset();
         // TODO: Add in hook here @HandOfDoom (activate)
     }
 
@@ -62,16 +64,22 @@ public class GameManager : MonoBehaviour {
         if (turnOn) input.UI.Click.Enable(); else input.UI.Click.Disable();
     }
     private void StartGame(InputAction.CallbackContext context) {
-        if (instance.State == GameState.Menu) {
+        if (instance.State != GameState.Playing) {
             var mousePosition = Input.mousePosition;
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, mousePosition - Camera.main.ScreenToWorldPoint(mousePosition), Mathf.Infinity);
 
             // If we hit nothing or we hit one of the boundary/triggers, start the game and turn off UI clicking
             if (!hit || hit.collider.tag == "Boundary") {
+                // In case there are leftovers from a previous game
+                foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy")) Destroy(obj);
+                
+                instance.Score = 0;
+                instance.startGameTrigger.Reset();
+
                 UIManager.instance.Clear();
                 ToggleClickAction(false);
                 playerManager.Spawn();
-                music.Play();
+                if (!music.isPlaying) music.Play();
             }
         }
     }
@@ -81,5 +89,8 @@ public class GameManager : MonoBehaviour {
         playerManager.KillPlayer();
         // TODO: Add in hook here @HandOfDoom (deactivate)
         UIManager.instance.GameOverScreen();
+
+        // Allow restart of game here
+        ToggleClickAction(true);
     }
 }
