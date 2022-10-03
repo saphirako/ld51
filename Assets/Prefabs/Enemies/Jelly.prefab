@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 6
   enemySpawnHeightBounds: {x: -3, y: -1}
-  enemySpeedMinMax: {x: 0.1, y: 0.2}
+  enemySpeedMinMax: {x: 0.05, y: 0.1}
   damage: 3
   points: 500
   health: 10

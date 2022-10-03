@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour {
     private int points;
     [SerializeField]
     private float health;
+    private float zigzag;
 
     private ParticleSystem ps;
     private Animator anim;
@@ -44,6 +45,7 @@ public class Enemy : MonoBehaviour {
             0f,
             Space.Self
         );
+        zigzag = 0f;
     }
 
     void FixedUpdate() {
@@ -51,7 +53,10 @@ public class Enemy : MonoBehaviour {
         if (System.Array.IndexOf(leftRighters, enemyType) >= 0) transform.position = new Vector2(transform.position.x + enemySpeed, transform.position.y);
 
         // Jelly movement logic:
-        if (enemyType == EnemyType.Jelly) transform.position = new Vector2(transform.position.x + enemySpeed, transform.position.y + (Mathf.Sin(Time.deltaTime) * enemySpeed * 2));
+        if (enemyType == EnemyType.Jelly) {
+            zigzag += Time.deltaTime;
+            transform.position = new Vector2(transform.position.x + enemySpeed, transform.position.y + (Mathf.Sin(zigzag) * enemySpeed * .1f));
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other) {
